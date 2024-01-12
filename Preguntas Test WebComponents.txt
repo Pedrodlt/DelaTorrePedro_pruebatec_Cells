@@ -1,0 +1,39 @@
+Examen WebComponents
+
+¿Qué es un webComponent?
+**b. Un conjunto de tecnologías que permiten crear componentes HTML personalizados.** 
+
+¿En qué tecnologías se basan los webComponents?
+**a. HTML Templates, Custom Elements y /Shadow DOM.**
+
+¿Cuáles son los principales métodos del ciclo de vida de un 
+WebComponent?
+**b. constructor, connectedCallback, disconnectedCallback, 
+attributeChangedCallback**
+
+¿Cómo se define una propiedad reactiva en LitElement?
+**b. static properties = {name: 'String'};**
+
+¿En qué ciclo de vida tengo acceso al render en LitElement?
+**c. FirstUpdated**
+
+¿Qué es un 'slot' en el contexto de los WebComponents?
+**a. Es un lugar en el componente donde se pueden insertar contenidos
+dinámicamente.**
+
+¿Qué ciclos de vida nos proporciona CELLS?
+**c. onPageEnter, onPageLeave**
+
+¿Qué es el Bridge de CELLS?
+**a. Nos proporciona comunicación entre componentes en las 
+aplicaciones, utilizando el patrón de mensajería pub/sub, también 
+gestiona el enrutamiento**
+
+¿Qué es un micro-frontend?
+**a. Es un patrón de diseño que consiste en descomponer una 
+aplicación frontend en sus características y nos permiten la 
+reutilización de la aplicación**
+
+¿Qué componente utilizo en BBVA para hacer peticiones HTTP?
+**b. DataManager**
+
