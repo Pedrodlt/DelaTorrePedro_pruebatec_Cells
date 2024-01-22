@@ -1,5 +1,8 @@
 import { css } from "lit";
 
+/**
+ * Es recomendable utilizar selector :host{display: none} para evitar problemas futuros
+ */
 export const navigationMenuStyle = css`
 
     .navbar {

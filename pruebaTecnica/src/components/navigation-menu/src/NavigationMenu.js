@@ -15,7 +15,11 @@ export class NavigationMenu extends LitElement {
   }
 
   //Creamos un evento para el click sobre cada enlace, que mandaremos y escucharemos en la landingHome
-  __onEventClick(event, href) {
+  /**
+   * 
+   * Si no utilizamos param event, podemos borrarlo
+   */
+  __onEventClick(href) {
     this.dispatchEvent(new CustomEvent('onClickMenuItem', {
       bubbles: true,
       composed: true,
@@ -33,7 +37,7 @@ export class NavigationMenu extends LitElement {
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Softtek.gif/1199px-Softtek.gif" alt="Logo" class="logo">
             ${this.menuItems.map(({ href, name }) => {
       return html`
-                  <a @click="${(event) => this.__onEventClick(event, href)}" href="${href}">${name}</a>
+                  <a @click="${() => this.__onEventClick(href)}" href="${href}">${name}</a>
                 `;
     })}     
           </nav>

@@ -1,27 +1,21 @@
 import { html, LitElement } from "lit";
+import { Router } from '@vaadin/router';
 import { productFormStyle } from "./ProductForm.style";
 
+/**
+ * Si no utilizamos las propiedades para nada más que almacenar el valor y mandarlo al sesion
+ * No hace falta tener declaradas las propiedades.
+ */
 export class ProductForm extends LitElement {
-
-    static properties = {
-        name: { type: String },
-        image: { type: String },
-        description: { type: String },
-        price: { type: Number }
-
-    }
-
-    constructor() {
-        super();
-        this.name = '';
-        this.image = '';
-        this.description = '';
-        this.price = 0
-    }
-
     static styles = productFormStyle;
 
     //Creamos un evento personalizado para cada dato del formulario
+    /**
+     * 
+     * Muy buena iniciativa pero desde el callback del submit podemos rescatar todos los valores
+     * Gracias a https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData
+     * new FormData(form)
+     */
     __eventNameInput(event) {
         this.name = event.target.value;
     }
@@ -38,17 +32,25 @@ export class ProductForm extends LitElement {
         this.price = parseFloat(event.target.value);
     }
 
+    /**
+     * 
+     * Muy bien!!! utilizas el evento submit 😊
+     */
     __eventSubmit(event) {
 
         //Detenemos el comportamiento predeterminado el submit del formulario
+        /**
+         * Utilizando formData podemos captar los valores del input
+         */
         event.preventDefault();
+        const formData = new FormData(event.currentTarget);
 
         // Creamos un nuevo producto con los datos que nos manda el formulario
         const newProduct = {
-            name: this.name,
-            image: this.image,
-            description: this.description,
-            price: this.price
+            name: formData.get('name'),
+            image: formData.get('image'),
+            description: formData.get('description'),
+            price: formData.get('price')
         };
 
         // Agregar el nuevo producto a localStorage, que será un array y lo pusheamos en este, y lo seteamos en localstorage
@@ -56,11 +58,7 @@ export class ProductForm extends LitElement {
         storedProducts.push(newProduct);
         localStorage.setItem('products', JSON.stringify(storedProducts));
 
-        //Limpiamos el formulario una vez enviado los datos
-        this.name = '';
-        this.image = '';
-        this.description = '';
-        this.price = 0
+        Router.go('/home')
     }
 
     //Renderizamos el formulario, añadimos los eventos a cada input y conseguimos el valor de cada uno que enviaremos al array del localStorage
@@ -70,16 +68,16 @@ export class ProductForm extends LitElement {
                 <h1>Introduce los datos del Producto</h1>
                 <form @submit="${this.__eventSubmit}">
                     <label for="name">Nombre:</label>
-                    <input type="text" id="name" placeholder="Introduce el nombre" .value="${this.name}" @input="${this.__eventNameInput}" required >
+                    <input name="name" type="text" id="name" placeholder="Introduce el nombre" required >
 
                     <label for="image">Imagen URL:</label>
-                    <input type="text" id="image" placeholder="Introduce la URL de la imagen" .value="${this.image}" @input="${this.__eventImageInput}" required >
+                    <input name="image" type="text" id="image" placeholder="Introduce la URL de la imagen" required >
 
                     <label for="description">Descripción:</label>
-                    <textarea id="description" placeholder="Introduce la descripción" .value="${this.description}" @input="${this.__eventDescriptionInput}" required ></textarea>
+                    <textarea name="description" id="description" placeholder="Introduce la descripción"  required ></textarea>
 
                     <label for="price">Precio:</label>
-                    <input type="number" id="price" .value="${this.price}" @input="${this.__eventPriceInput}" required >
+                    <input name="price" type="number" id="price" required >
 
                     <button type="submit">Crear Producto</button>
                 </form >

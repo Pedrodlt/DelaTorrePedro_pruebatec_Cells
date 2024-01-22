@@ -29,8 +29,13 @@ export class LandingMarketplace extends RouterMixin(LitElement) {
   }
 
   //Evento para escuchar el click de los enlaces enviados desde navigation-menu
+  /**
+   * 
+   * Muy bien!! 💪💪💪 La responsabilidad de navegar es del componente LandingMarketPlace
+   * Una mejora ya que tenemos la función de router que navega, podemos aprovechar esta función
+   */
   __onClickMenuItem(event) {
-    const currentHref = event.detail.href
+    this.navigation(event.detail.href);
   }
 
   //Renderizamos la pagina, y añadimos la navbar con los enlaces a la home y a la productForm
